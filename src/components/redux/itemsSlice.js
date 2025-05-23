@@ -13,7 +13,7 @@ export const itemsSlice = createSlice({
     },
 
     removeItem: (state, action) => {
-      const { id } = action.payload;
+      const id = action.payload;
       state.items = state.items.filter(item => item.id !== id);
     },
   },

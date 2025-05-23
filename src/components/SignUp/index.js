@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '../../firebase/firebase.js';
+import { setDoc, doc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const onChangeEmail = e => {
     setEmail(e.target.value);
@@ -14,12 +17,23 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const onChangeConfirmPassword = e => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const onSubmittingForm = e => {
+  const onSubmittingForm = async e => {
     e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      const user = auth.currentUser;
+      if (user) {
+        await setDoc(doc(db, 'Users', user.uid), {
+          email: user.email,
+        });
+      }
+      toast.success('User Registered Successfully!!', {
+        position: 'top-center',
+      });
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message, { position: 'bottom-center' });
+    }
   };
 
   return (
@@ -45,15 +59,6 @@ const LoginForm = () => {
             type="password"
             value={password}
             onChange={onChangePassword}
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={onChangeConfirmPassword}
           />
         </div>
         <button type="submit">Sign Up</button>

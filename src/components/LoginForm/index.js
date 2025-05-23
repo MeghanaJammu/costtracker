@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebase.js';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -13,8 +15,17 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const onSubmittingForm = e => {
+  const onSubmittingForm = async e => {
     e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success('User Logged In Successfully!!', {
+        position: 'top-center',
+      });
+      window.location.href = '/';
+    } catch (error) {
+      toast.error(error.message, { position: 'bottom-center' });
+    }
   };
 
   return (

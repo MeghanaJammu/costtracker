@@ -1,20 +1,23 @@
 import { FiBriefcase } from 'react-icons/fi';
 import { LuCirclePlus } from 'react-icons/lu';
 import { useState } from 'react';
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from 'uuid';
+import { auth } from '../../firebase/firebase.js';
 
 import TotalCost from '../TotalCost';
 import ProjectItems from '../ProjectItems';
 import Noitems from '../Noitems';
-
-import {useDispatch} from "react-redux";
-import {addItem} from "../redux/itemsSlice.js"
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../redux/itemsSlice.js';
 
 const Home = () => {
   const [itemName, setItemName] = useState('');
-  const [cost, setCost] = useState('');
+  const [cost, setCost] = useState(0);
   const [other, setOther] = useState('');
-  const [otherCost, setOtherCost] = useState('');
+  const [otherCost, setOtherCost] = useState(0);
+
+  const itemsList = useSelector(state => state.projectItems.items);
 
   const dispatch = useDispatch();
 
@@ -23,7 +26,7 @@ const Home = () => {
   };
 
   const onChangeCost = e => {
-    setItemName(e.target.value);
+    setCost(e.target.value);
   };
 
   const onChangeOther = e => {
@@ -37,21 +40,34 @@ const Home = () => {
   const onSubmitItem = e => {
     e.preventDefault();
     const itemObj = {
-	    id: uuidv4(),
-	    name: itemName,
-	    cost: cost
-    }
-    dispatch(addItem(itemObj));	  
+      id: uuidv4(),
+      name: itemName,
+      cost: cost,
+    };
+    dispatch(addItem(itemObj));
+    setItemName('');
+    setCost(0);
   };
 
   const onSubmitOthers = e => {
     e.preventDefault();
     const otherObj = {
-	    id: uuidv4(),
-	    name: other,
-	    cost: otherCost
+      id: uuidv4(),
+      name: other,
+      cost: otherCost,
+    };
+    dispatch(addItem(otherObj));
+    setOther('');
+    setOtherCost(0);
+  };
+
+  const toLogOut = async () => {
+    try {
+      await auth.signOut();
+      window.location.href = '/login';
+    } catch (error) {
+      console.log(error.message);
     }
-    dispatch(addItem(otherObj));	  
   };
 
   return (
@@ -60,7 +76,9 @@ const Home = () => {
         <FiBriefcase color="#4844ab" />
         <h1>ProjectCostTracker</h1>
       </div>
-      <button type="button">logout</button>
+      <button onClick={toLogOut} type="button">
+        logout
+      </button>
       <div>
         <div>
           <LuCirclePlus />
@@ -125,7 +143,7 @@ const Home = () => {
       </div>
       <div>
         <TotalCost />
-        <ProjectItems />
+        {itemsList.length === 0 ? <Noitems /> : <ProjectItems />}
       </div>
     </div>
   );
