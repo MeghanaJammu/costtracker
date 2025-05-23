@@ -2,9 +2,9 @@ import { FiBriefcase } from 'react-icons/fi';
 import { LuCirclePlus } from 'react-icons/lu';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { auth,db } from '../../firebase/firebase.js';
+import { auth, db } from '../../firebase/firebase.js';
 import { collection, addDoc } from 'firebase/firestore';
-import {toast} from "react-toastify";
+import { toast } from 'react-toastify';
 
 import TotalCost from '../TotalCost';
 import ProjectItems from '../ProjectItems';
@@ -67,7 +67,7 @@ const Home = () => {
       cost: otherCost,
     };
     try {
-      await addDoc(collection(db, 'Items'), otherObj); 
+      await addDoc(collection(db, 'Items'), otherObj);
       dispatch(addItem(otherObj));
       toast.success('Item added successfully!', { position: 'top-center' });
       setOther('');

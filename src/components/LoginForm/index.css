@@ -1,0 +1,68 @@
+.bg-cont {
+  background-color: #f0f0ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  background-color: white;
+  max-height: 500px;
+  border: solid 2px #d7d6ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.heading {
+  font-family: 'Roboto';
+  font-size: 36px;
+  font-weight: bold;
+  color: #5553ad;
+}
+
+.para {
+  font-family: 'Roboto';
+  font-size: 20px;
+  color: #5553ad;
+}
+
+::placeholder {
+  font-family: 'Roboto';
+  font-size: 20px;
+  color: #5553ad;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #5553ad;
+  border-width: 0px;
+  border-radius: 8px;
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: white;
+}
+
+.inp-cont {
+  margin-bottom: 10px;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.inp-box {
+  background-color: #f0f0ff;
+  border-color: #bbbaff;
+  border-radius: 5px;
+  height: 40px;
+}

@@ -39,13 +39,18 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmittingForm}>
-        <h1>Create an Account</h1>
-        <p>Join ProjectCostTracker to manage your projects efficiently.</p>
-        <div>
-          <label htmlFor="email">Email</label>
+    <div className="bg-cont">
+      <form className="login-form1" onSubmit={onSubmittingForm}>
+        <h1 className="heading">Create an Account</h1>
+        <p className="para">
+          Join ProjectCostTracker to manage your projects efficiently.
+        </p>
+        <div className="inp-cont">
+          <label className="para" htmlFor="email">
+            Email
+          </label>
           <input
+            className="inp-box"
             placeholder="you@example.com"
             id="email"
             type="text"
@@ -53,9 +58,12 @@ const SignUp = () => {
             onChange={onChangeEmail}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className="inp-cont">
+          <label className="para" htmlFor="password">
+            Password
+          </label>
           <input
+            className="inp-box"
             placeholder="(min. 6 characters)"
             id="password"
             type="password"
@@ -63,8 +71,10 @@ const SignUp = () => {
             onChange={onChangePassword}
           />
         </div>
-        <button type="submit">Sign Up</button>
-        <p>
+        <button className="btn" type="submit">
+          Sign Up
+        </button>
+        <p className="para">
           Already have an account?<Link to="/login">Login</Link>
         </p>
       </form>
