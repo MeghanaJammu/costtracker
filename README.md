@@ -1,5 +1,8 @@
-Note: Due to some unsortable error i couldnot use chakra UI
+Note: Due to some unsortable error i couldnot use chakra UI.
+
 Any user can register using an email and a password and then will be directed to home page.
+
+As time could not permit I could not finish the css either.
 
 # Getting Started with Create React App
 
