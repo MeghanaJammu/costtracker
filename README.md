@@ -1,3 +1,5 @@
+Note: Due to some umsortable error i couldnot use chakra UI 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
