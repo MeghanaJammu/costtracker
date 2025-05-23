@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/firebase.js';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -61,4 +63,4 @@ const LoginForm = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

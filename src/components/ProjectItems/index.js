@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { removeItem } from '../redux/itemsSlice.js';
 
 const Item = props => {
-  const { details, onDelete } = props;
+  const { details } = props;
   const { id, name, cost } = details;
   const dispatch = useDispatch();
 

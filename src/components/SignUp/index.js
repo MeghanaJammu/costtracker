@@ -4,8 +4,9 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase.js';
 import { setDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const LoginForm = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,6 +31,7 @@ const LoginForm = () => {
       toast.success('User Registered Successfully!!', {
         position: 'top-center',
       });
+      window.location.href = '/';
     } catch (error) {
       console.log(error.message);
       toast.error(error.message, { position: 'bottom-center' });
