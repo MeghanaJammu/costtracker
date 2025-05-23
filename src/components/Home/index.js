@@ -2,7 +2,9 @@ import { FiBriefcase } from 'react-icons/fi';
 import { LuCirclePlus } from 'react-icons/lu';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { auth } from '../../firebase/firebase.js';
+import { auth,db } from '../../firebase/firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
+import {toast} from "react-toastify";
 
 import TotalCost from '../TotalCost';
 import ProjectItems from '../ProjectItems';
@@ -37,28 +39,44 @@ const Home = () => {
     setOtherCost(e.target.value);
   };
 
-  const onSubmitItem = e => {
+  const onSubmitItem = async e => {
     e.preventDefault();
     const itemObj = {
       id: uuidv4(),
       name: itemName,
       cost: cost,
     };
-    dispatch(addItem(itemObj));
-    setItemName('');
-    setCost(0);
+    try {
+      await addDoc(collection(db, 'Items'), itemObj);
+      dispatch(addItem(itemObj));
+      toast.success('Item added successfully!', { position: 'top-center' });
+      setItemName('');
+      setCost(0);
+    } catch (error) {
+      toast.error('Error adding item: ' + error.message, {
+        position: 'bottom-center',
+      });
+    }
   };
 
-  const onSubmitOthers = e => {
+  const onSubmitOthers = async e => {
     e.preventDefault();
     const otherObj = {
       id: uuidv4(),
       name: other,
       cost: otherCost,
     };
-    dispatch(addItem(otherObj));
-    setOther('');
-    setOtherCost(0);
+    try {
+      await addDoc(collection(db, 'Items'), otherObj); 
+      dispatch(addItem(otherObj));
+      toast.success('Item added successfully!', { position: 'top-center' });
+      setOther('');
+      setOtherCost(0);
+    } catch (error) {
+      toast.error('Error adding item: ' + error.message, {
+        position: 'bottom-center',
+      });
+    }
   };
 
   const toLogOut = async () => {
